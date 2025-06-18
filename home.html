@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>home</title>
+  <style>
+  /* 基礎樣式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;          /* 使用 100vh 確保覆蓋整個視窗高度 */
+  margin: 0;
+  padding: 0;
+  background-image: url('images/back.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;  /* 改成 scroll 兼容手機 */
+  font-family: Arial, sans-serif;
+  color: #c7c3be;
+  overflow-x: hidden;      /* 避免橫向滾動影響 */
+}
+
+/* 區塊通用樣式 */
+.section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/*.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(78, 77, 77, 0.4);
+  z-index: 0;
+}*/
+
+.section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 區塊1特定樣式 */
+.section-1 h1 {
+  font-size: 120px;
+  margin: 20px 0;
+}
+
+.section-1 h2{
+  font-size: 60px;
+  text-align: center;
+}
+
+/* 區塊2特定樣式 */
+.section-2 .content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.text-box {
+  flex: 1;
+  min-width: 200px;
+  max-width: 500px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.text-box h2 {
+  font-size: 65px;
+  margin-bottom: 20px;
+  color: #c7c3be;
+}
+
+.text-box p {
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: 0.15em;
+  color: #e0ddd7;
+}
+
+.image-box {
+  flex: 0 0 600px;
+  height: 120%;
+  overflow: hidden;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  z-index: 1;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.image-box.expanded {
+  transform: scale(1.25);
+  z-index: 10;
+}
+
+/* 區塊3特定樣式 */
+.section-3 {
+  align-items: flex-start;
+  padding-top: 60px;
+}
+
+.section-3 .content-wrapper {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  padding-right: 30px;
+}
+
+.section-3 .text-box {
+  margin-right: 0;
+  max-width: 500px;
+  text-align: left;
+}
+
+.cards-wrapper {
+  width: 100%;
+  display: flex;
+  gap: 60px;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 25px;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 33.33%;
+  color: #c7c3be;
+  text-decoration: none;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.card-title {
+  font-size: 35px;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+}
+
+.card-divider {
+  height: 3px;
+  width: 50px;
+  background-color: #c7c3be;
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+
+.card-content {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: justify;
+  flex-grow: 1;
+}
+
+/* 頁腳樣式 */
+.footer {
+  width: 100%;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  color: #c7c3be99;
+  font-weight: 300;
+  font-size: 18px;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 150px;
+}
+
+.footer-content a {
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+  color: #c7c3be;
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  opacity: 0.7;
+  color: #ddd;
+}
+
+.footer i {
+  font-size: 18px;
+  gap: 10px;
+}
+
+/* 移動導航樣式 */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  transition: transform 0.3s ease;
+}
+
+.menu-icon {
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 18px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.menu-list {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: rgba(30, 30, 30, 0.95);
+  border-radius: 10px;
+  padding: 10px;
+  list-style: none;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.menu-list li {
+  margin: 8px 0;
+}
+
+.menu-list a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 6px 12px;
+  display: block;
+  text-align: right;
+}
+
+.menu-list.show {
+  display: flex;
+}
+
+@media (max-width: 430px) {
+  /* 容器調整：固定寬度 350px，置中 */
+  .content-wrapper {
+    width: 350px;        /* 固定寬度 */
+    margin: 0 auto;      /* 水平置中 */
+    padding: 20px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: auto;
+  }
+
+  /* 文字框寬度與容器同寬，文字置中 */
+  .text-box {
+    width: 100%; 
+            /* 佔滿content-wrapper */
+    max-width: 400px;    /* 最大寬度不超過350 */
+    padding: 0 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* 文字標題調整 */
+  .text-box h2 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .text-box p {
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  /* 主要標題 */
+  .section-1 h1 {
+    font-size: 60px;
+    text-align: center;
+  }
+
+  /* 小標題 */
+  .section h2,
+  .section-3 h2 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .card-content {
+    font-size: 15px;
+    text-align: center;
+  }
+
+  /* 圖片框 */
+  .image-box {
+    width: 90%;
+    max-width: 300px;
+    max-height: 300px;
+    aspect-ratio: 1 / 1;
+    border-radius: 15px;
+    margin: 20px auto;
+  }
+
+  /* 卡片容器調整 */
+  .cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .card {
+    width: 100%;       /* 撐滿 cards-wrapper */
+    max-width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 漢堡選單顯示 */
+  .mobile-nav {
+    display: block;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+  }
+
+  /* 頁腳 */
+  .footer {
+    padding: 10px 0;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: nowrap;
+  }
+
+  .footer-content a {
+    font-size: 14px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-content svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* 背景附件設定 */
+  html, body {
+    background-attachment: scroll;
+  }
+}
+
+
+
+/* 響應式設計 - iPad (768px-1024px) */
+@media (min-width: 430px) and (max-width: 1024px) {
+
+/* 調整主標題與副標題大小 */
+.section-1 h1 {
+  font-size: 100px;
+  text-align: center;
+}
+
+.card-divider{
+  text-align: center;
+
+}
+
+.text-box h2 {
+  font-size: 80px;
+  text-align: center;
+}
+
+.text-box p {
+  max-width: 450px;
+  text-align: center;
+}
+
+/* 調整圖片樣式 */
+.image-box {
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 30px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+  display: hidden;
+  margin: 0 auto;
+}
+
+/* 統一文字盒排版 */
+.text-box {
+  max-width: 80%;
+  padding: 0 15px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+/* 包住整塊區域，讓內容上下居中顯示 */
+.text-section-wrapper,
+.section.section-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+/* 調整內容區塊統一風格 */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  text-align: center;
+  box-sizing: border-box;
+  max-width: 100%;  /* 讓容器寬度撐滿 */
+    padding: 0;       /* 可視需求調整 */
+    margin: 0 auto;
+}
+
+/* 垂直排列卡片並置中 */
+.cards-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* 卡片間距 */
+}
+
+/* 確保每個卡片撐滿寬度 */
+.card {
+  width: 90%;
+  max-width: 100%;
+}
+
+/* footer內容置中並允許換行 */
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.footer-content a {
+  white-space: normal;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+
+
+  .text-box {
+    max-width: 90%;    /* 讓文字匡最大寬度拉大 */
+  width: 700px;      /* 或固定寬度700px */
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* ⬅️ 水平置中 */
+    text-align: center;    /* ⬅️ 文字置中 */
+    margin: 0 auto;
+  }
+
+  .text-box h2 {
+    font-size: 80px;
+  }
+
+ 
+
+.image-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.text-box h2{
+  font-size: 40px;
+  text-align: center;
+}
+
+.content-wrapper {
+  max-width: 1200px;   /* 調大容器寬度 */
+  margin: 0 auto;
+  padding: 20px;       /* 視需求調整 */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+}
+
+
+
+
+
+
+</style>
+</head>
+<body>
+ 
+  <nav class="mobile-nav">
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <ul class="menu-list">
+    <li><a href="personal_introduction.html" target="_blank">自我介紹</a></li>
+    <li><a href="skills.html" target="_blank">技能</a></li>
+    <li><a href="profile.html" target="_blank">作品集</a></li>
+  </ul>
+</nav>
+
+
+  <!-- 區塊 1 -->
+  <div class="section section-1">
+    <h2>Welcome to</h2>
+    <h1>Tiffany's</h1>
+    <h2>Profile</h2>
+  </div>
+
+  <!-- 區塊 2：自我介紹 -->
+  <div class="section section-2">
+    <div class="content-wrapper">
+      <div class="text-box">
+        <h2>About me</h2>
+        <p>
+          這是我與所愛之物的深刻連結：在書頁間漫遊思想，從花束中讀懂自然的詩句，更沉醉於顏料流淌的創作魔法。當色彩從管中擠出、在畫布綻放成花束的瞬間，平凡便轉化為極致的浪漫。書籍是靈魂的翅膀，花卉是生命的呼吸，而畫布承載著心跳般的筆觸——三者交融成我的調色盤，讓每個日常都如未乾的油彩般鮮活，既溫柔療癒自己，也將這份絢爛傳遞給世界。
+        </p>
+      </div>
+      <div class="image-box">
+        <img src="images/flower.png" alt="作品圖片" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 區塊 3：聯絡資訊 -->
+  <div class="section section-3">
+    <div class="content-wrapper">
+    
+      <div class="text-box">
+        <h2>Contacts</h2>
+      </div>
+      <div class="cards-wrapper">
+        <a href="Personal_Introduction.html" class="card" target="_blank" rel="noopener noreferrer">
+          <div class="card-title">Personal Introduction</div>
+          <div class="card-title">自我介紹</div>
+          <div class="card-divider"></div>
+          <div class="card-content">
+            Skilled in connecting with others, I explore design as a way to understand the world and myself. I aim to keep learning and expanding into a more diverse world. To me, the world is bold, design is dynamic, and both reflect my unique perspective.
+          </div>
+        </a>
+        <a href="skills.html" class="card" target="_blank" rel="noopener noreferrer">
+          <div class="card-title">Skills</div>
+          <div class="card-title">技能</div>
+          <div class="card-divider"></div>
+          <div class="card-content">
+            I've gained key skills in information management, including Python for data analysis, C++ for object-oriented programming, HTML/CSS for web design, and Unity/C# for game basics. These skills lay a strong foundation for my future studies and career.
+          </div>
+        </a>
+        <a href="0530fin.html" class="card" target="_blank" rel="noopener noreferrer">
+          <div class="card-title">Project Showcase</div>
+          <div class="card-title">作品集</div>
+          <div class="card-divider"></div>
+          <div class="card-content">
+            Project Showcase features a variety of creative works, including hand-drawn sketches, digital illustrations, 3D modeling, and photography, blending traditional and modern techniques to bring concepts to life with unique style.
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <div class="footer-content">
+      <a href="yxiao852@gmail.com">
+        <!-- 信件 icon（你可以再加 SVG 或換 i 標籤） -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-.5a.5.5 0 0 0-.5.5v.217l6.5 4.55 6.5-4.55V4a.5.5 0 0 0-.5-.5H2zm13 2.383-4.76 3.332L15 12.117V5.883zM14.803 13H1.197l4.76-3.332L8 10.783l2.043-1.115L14.803 13zM1 12.117l4.76-3.332L1 6.883v5.234z"/>
+        </svg>
+        Mail
+      </a>
+    
+      <a href="https://www.instagram.com/yujie9_17/" target="_blank">
+        <!-- Instagram icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
+          <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+        </svg>
+        Instagram
+      </a>
+    
+      <a href="0966332830">
+        <!-- Phone icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
+          <path d="M3.654 1.328a.678.678 0 0 1 .58-.326h2.263c.27 0 .52.162.615.413l1.19 2.833a.678.678 0 0 1-.156.72l-1.232 1.232a11.72 11.72 0 0 0 5.292 5.292l1.232-1.232a.678.678 0 0 1 .72-.156l2.833 1.19a.678.678 0 0 1 .413.615v2.262a.678.678 0 0 1-.326.58l-2.5 1.5a.678.678 0 0 1-.658 0C5.306 13.26.74 8.694 1.174 2.986a.678.678 0 0 1 .48-.536z"/>
+        </svg>
+        Phone
+      </a>
+    </div>
+  </footer>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+  // ----------- 圖片展開/收合 -----------
+  const imageBoxes = document.querySelectorAll('.image-box');
+  imageBoxes.forEach(box => {
+    box.addEventListener('click', e => {
+      e.stopPropagation();
+      imageBoxes.forEach(b => {
+        if (b !== box) b.classList.remove('expanded');
+      });
+      box.classList.toggle('expanded');
+    });
+  });
+
+  // 點擊頁面其他地方收起圖片
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.image-box')) {
+      imageBoxes.forEach(box => box.classList.remove('expanded'));
+    }
+  });
+
+  // ----------- 漢堡選單控制 -----------
+  const menuList = document.querySelector('.menu-list');
+  const menuIcon = document.querySelector('.menu-icon');
+  const mobileNav = document.querySelector('.mobile-nav');
+  let menuTimeout = null;
+  let lastScrollTop = 0;
+
+  function closeMenu() {
+    menuList.classList.remove('show');
+    clearTimeout(menuTimeout);
+  }
+
+  function openMenu() {
+    menuList.classList.add('show');
+    clearTimeout(menuTimeout);
+    menuTimeout = setTimeout(() => {
+      closeMenu();
+    }, 5000);
+  }
+
+  menuIcon.addEventListener('click', e => {
+    e.stopPropagation();
+    if (menuList.classList.contains('show')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // 點擊頁面其他地方收起選單
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.menu-list') && !e.target.closest('.menu-icon')) {
+      closeMenu();
+    }
+  });
+
+  // ----------- 漢堡顯示/隱藏與滾動控制 -----------
+  function handleResizeAndScroll() {
+    const width = window.innerWidth;
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (width <= 900) {
+      mobileNav.style.display = 'block';
+
+      if (currentScrollTop > lastScrollTop) {
+        // 往下滑，隱藏漢堡
+        mobileNav.style.transform = 'translateY(-150%)';
+      } else {
+        // 往上滑，顯示漢堡
+        mobileNav.style.transform = 'translateY(0)';
+      }
+      mobileNav.style.transition = 'transform 0.3s ease';
+    } else {
+      // 大螢幕隱藏漢堡選單且關閉
+      mobileNav.style.display = 'none';
+      mobileNav.style.transform = 'translateY(0)';
+      closeMenu();
+    }
+
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+  }
+
+  // 初始狀態設定
+  handleResizeAndScroll();
+
+  window.addEventListener('scroll', handleResizeAndScroll);
+  window.addEventListener('resize', handleResizeAndScroll);
+});
+
+</script>
+</body>
+</html>
