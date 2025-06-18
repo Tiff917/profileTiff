@@ -1,1 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skills</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            background-image: url(images/010.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+        .header h1 {
+            font-size: 50px;
+            margin: 10px 0;
+            color: #c7c3be;
+        }
+        .header h2 {
+            font-size: 25px;
+            margin: 10px 0;
+            color: #c7c3be;
+        }
+        .section-2 {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 40px;
+            width: 80%;
+            margin: 0 auto;
+            padding-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .section {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .section:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .section h3 {
+            font-size: 35px;
+            margin-bottom: 20px;
+            color: #c7c3be;
+            text-align: center;
+        }
+        .section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #c7c3be;
+        }
+        .section-content {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .section-item {
+            flex: 1;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 3px solid #c7c3be;
+            transition: border-color 0.3s ease;
+        }
+        .section:hover .section-item {
+            border-left-color: #ffffff;
+        }
+        .section-item h4 {
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #c7c3be;
+        }
+        .section-item p {
+            font-size: 16px;
+            color: #e0ddd7;
+        }
+        .image-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .image-container {
+            width: 600px;
+            height: 600px;
+            border-radius: 10%;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .square-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .nav {
+            position: fixed;
+            bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav a {
+            color: #c7c3be;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: 1px solid #c7c3be;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .nav a:hover {
+            background-color: #c7c3be;
+            color: #fff;
+        }
+        @media (max-width: 768px) {
+            .section-content {
+                flex-direction: column;
+            }
+        }
+        .home-button {
+            position: relative;
+            bottom: 20px;    /* 與底部距離 */
+            right: -600px;    /* 與右側距離 */
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            border: 1px solid #ffffff;
+            z-index: 1000;
+            cursor: pointer;
+        }
+        .home-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        @media (max-width: 768px) {
+            .section-content {
+                flex-direction: column;
+            }
+            .home-button {
+                bottom: 40px;
+                right: 40px;
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+        /* ✅ 手機：max-width 429px */
+@media (max-width: 429px) {
+    .header h1 {
+        font-size: 32px;
+    }
 
+    .header h2 {
+        font-size: 18px;
+    }
+
+    .section {
+        padding: 20px;
+    }
+
+    .section h3 {
+        font-size: 24px;
+    }
+
+    .section-item h4 {
+        font-size: 16px;
+    }
+
+    .section-item p,
+    .section p {
+        font-size: 12px;
+    }
+
+    .image-container {
+        width: 250px;
+        height: 250px;
+        border-radius: 15px;
+    }
+
+    .home-button {
+        right: 20px;
+        bottom: 0px;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* ✅ 平板：430px–1024px */
+@media (min-width: 430px) and (max-width: 1024px) {
+    .header h1 {
+        font-size: 40px;
+    }
+
+    .header h2 {
+        font-size: 20px;
+    }
+
+    .section {
+        padding: 25px;
+    }
+
+    .section h3 {
+        font-size: 28px;
+    }
+
+    .section-item h4 {
+        font-size: 22px;
+    }
+
+    .section-item p,
+    .section p {
+        font-size: 15px;
+    }
+
+    .image-container {
+        width: 400px;
+        height: 400px;
+        border-radius: 20px;
+    }
+
+    .home-button {
+        right: 40px;
+        bottom: 0px;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+    @media (max-width: 429px), (min-width: 430px) and (max-width: 1024px) {
+    .section-content {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .section-item {
+        flex: 0 0 calc(30% - 10px); /* 手機與平板上每個項目寬度約 50% */
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Skills</h1>
+    </div>
+    
+    <div class="section-2">
+        <a href="profile.html" class="section">
+            <h3>技能</h3>
+            <div class="section-content">
+                <div class="section-item">
+                    <h4>設計技能</h4>
+                    <p>UI/UX 設計</p>
+                    <p>平面設計</p>
+                    <p>視覺設計</p>
+                </div>
+                <div class="section-item">
+                    <h4>3D建模</h4>
+                    <p>Creo</p>
+                    <p>Blender</p>
+                </div>
+                <div class="section-item">
+                    <h4>軟體技能</h4>
+                    <p>Photoshop</p>
+                    <p>Illustrator</p>
+                    <p>Figma</p>
+                    <p>AutoCAD</p>
+                    <p>Procrate</p>
+                </div>
+            </div>
+        </a>
+
+        <div class="section">
+            <h3>經驗</h3>
+            <div class="section-content">
+                <div class="section-item">
+                    <h4>專案經驗</h4>
+                    <p>網站設計</p>
+                </div>
+    
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>程式</h3>
+            <div class="section-content">
+                <div class="section-item">
+                    <h4>前端開發</h4>
+                    <p>HTML</p>
+                    <p>CSS</p>
+                </div>
+                <div class="section-item">
+                    <h4>其他程式語言</h4>
+                    <p>Python</p>
+                    <p>C++</p>
+                    <p>Java</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="home.html" class="home-button">Back to Home</a>
+</body>
+</html> 
