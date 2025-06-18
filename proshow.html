@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集</title>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --edge: 5px;
+    --gap: 20px;
+    --photo-base: min(30vw, 300px);
+    --radius: 20px;
+    --title-gap: 30px;
+}
+
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: #fff;
+    position: relative;
+    z-index: 0;
+}
+
+.bg-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('images/back02.png') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+    margin-left: 100px;
+    box-sizing: border-box;
+}
+
+header, .header2 {
+    color: #595959;
+    padding: 20px;
+    height: 150px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #000000;
+    position: absolute;
+    margin: 0px 0 10px 60px;
+}
+
+h1, h2 {
+    margin-left: 0;
+    padding-left: 0;
+    text-align: left;
+    max-width: var(--photo-base);
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 150px;
+    text-align: left;
+    padding: 0;
+    margin: 0 0 0px 20px;
+    color: #858585;
+    position: relative;
+    z-index: 999;
+    font-weight: normal;
+    max-width: var(--photo-base);
+}
+
+h2 {
+    font-size: 25px;
+    color: #464646;
+    font-weight: 500;
+    margin: 10px 0 30px 0;
+    text-align: center;
+    z-index: 999;
+    position: relative;
+}
+
+.divider {
+    width: 385px;
+    border: none;
+    border-top: 5px solid #bfbfbf;
+    margin: 10px auto 20px auto;
+    padding-left: 0;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.section1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 300px;
+    background-color: #282828;
+    padding-top: 20px;
+    margin-top: 20px;
+    color: #c2c2c2;
+    z-index: 1000;
+    border: 1px solid #282828;
+    box-sizing: border-box;
+}
+
+.section1-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section1-list li {
+    color: #717171;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.section1-list a {
+    display: block;
+    padding: 15px 0;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+}
+
+.section1-list a:last-child {
+    border-bottom: none;
+}
+
+.section1-list a:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color: #ffffff;
+}
+
+.section-container {
+    display: flex;
+    gap: 10px;
+}
+
+.grid {
+    width: 100%;
+}
+
+.grid-sizer,
+.grid-item {
+    width: 33.333%;
+    box-sizing: border-box;
+}
+
+.grid-item {
+    padding: 4px;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+}
+
+/* ===== 畫廊基礎結構 ===== */
+.gallery {
+    column-count: 3;
+    column-gap: 20px;
+    position: relative;
+    z-index: 1;
+    margin: 180px auto 0;
+    width: 90%;
+    display: block;
+    left: 0;
+    right: 0;
+}
+
+.photo {
+    width: 100%;
+    margin-bottom: 20px;
+    break-inside: avoid;
+    display: inline-block;
+}
+
+.image-hover-container {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.hover-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: filter 0.3s ease;
+    border-radius: 20px;
+}
+
+.hover-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+.image-hover-container:hover .hover-overlay {
+        opacity: 1;
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.enlarged {
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.enlarged img {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: var(--radius);
+}
+
+.prev-button, .next-button {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(78, 78, 78, 0.5);
+    color: rgb(206, 206, 206);
+    border: none;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: var(--radius);
+    opacity: 0.5;
+}
+
+.prev-button {
+    left: 15px;
+}
+
+.next-button {
+    right: 15px;
+}
+
+.home-button {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border: 1px solid #ffffff;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.home-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.header2 h1 {
+    font-size: 100px;
+    text-align: left;
+    padding: 0 0 25px 0;
+    margin: 0px 0 0px -20px;
+    color: #d3d3d3;
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    z-index: 998;
+    font-weight: normal;
+    max-width: var(--photo-base);
+}
+
+.header2 {
+    width: 100%;
+    height: 150px;
+    background-color: rgba(72, 72, 72, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: absolute;
+    margin: -10px 0 0px -10px;
+    max-width: 100%;
+    overflow-y: hidden;
+    height: 140px;
+}
+
+#sectionA,#sectionB,#sectionC,#sectionD {
+    scroll-margin-top: 100px;
+}
+
+.section2 {
+    margin-left: 20px;
+    width: calc(100vw - 100px);
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.section1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(151, 150, 150, 0.3);
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 1000;
+    border: none;
+    border-radius: 5px;
+}
+
+.section1-list.show {
+    display: block;
+}
+
+.section1-list {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    background-color: rgba(151, 150, 150, 0.9);
+    width: 150px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+#menu-toggle:checked + .hamburger + .section1-list {
+    display: block;
+}
+
+.hamburger {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    font-size: 30px;
+    color: #adadad;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    align-self: center;
+    z-index: 10000;
+ 
+}
+
+.hamburger:focus,
+.hamburger:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.hamburger::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.section1-list li a {
+    display: block;
+    z-index: 9999;
+    padding: 10px 15px;
+    color: #adadad;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section1-list li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.image-text-pair {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.image-text-pair img {
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.image-text-pair .text {
+    max-width: 50%;
+}
+
+.image-text-pair .text h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.image-text-pair .text p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.image-text-pair:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    .gallery {
+        column-count: 2;
+    }
+    .header2 h1 {
+    font-size: 80px;
+    white-space: nowrap;
+    position: absolute; /* 改成 fixed，固定在視窗 */
+    top: 30px;       /* 你可以調整位置 */
+    left: 10px;      /* 你可以調整位置 */
+    margin: 0;       /* 建議把 margin 先取消，避免影響定位 */
+    z-index: 10;   /* 確保在最上層 */
+  }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        column-count: 1;
+    }
+    .header2 h1 {
+    font-size: 80px;
+    white-space: nowrap;
+    position: absolute; /* 改成 fixed，固定在視窗 */
+    top: 30px;       /* 你可以調整位置 */
+    left: 10px;      /* 你可以調整位置 */
+    margin: 0;       /* 建議把 margin 先取消，避免影響定位 */
+    z-index: 10;   /* 確保在最上層 */
+  }
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header2">
+        <h1>作品集</h1>
+        </div>
+    </header>
+    
+    
+    <main>
+        <section class="section1">
+            <input type="checkbox" id="menu-toggle" />
+            <label for="menu-toggle" class="hamburger">☰</label>
+            <ul class="section1-list">
+                  <li><a href="hand.html">手繪</a></li>
+                  <li><a href="computer.html">電繪</a></li>
+                  <li><a href="picture.html">攝影</a></li>
+                  <li><a href="pproject.html">專案</a></li>
+                </ul>
+              </section>                         
+                <div class="bg-overlay"></div>
+                <div class="gallery">
+                    <div class="photo"><div class="image-hover-container"><img src="images/001.png" alt="產品01" class="hover-image"/><div class="hover-overlay"><p>產品精摩<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/002.png" alt="產品02" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/003.jpg" alt="產品03" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/004.png" alt="產品04" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/005.png" alt="產品05" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/006.png" alt="水彩06" class="hover-image"/><div class="hover-overlay"><p>質感練習<br>2024</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/007.png" alt="水彩06" class="hover-image"/><div class="hover-overlay"><p>質感練習<br>2024</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/008.png" alt="產品01" class="hover-image"/><div class="hover-overlay"><p>產品精摩<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/009.png" alt="產品02" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/010.jpg" alt="產品03" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/011.png" alt="產品04" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/012.png" alt="產品05" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+                    <div class="photo"><div class="image-hover-container"><img src="images/013.png" alt="產品05" class="hover-image"/><div class="hover-overlay"><p>產品素描<br>2023</p></div></div></div>
+
+                  </div>
+                  </div>
+              
+                <a href="home.html" class="home-button">Back to Home</a>
+              
+                <!-- 放大彈出層 -->
+                <div class="overlay" id="imageOverlay" tabindex="-1" aria-hidden="true">
+                    <button class="prev-button" id="prevBtn" aria-label="上一張圖片">&#10094;</button>
+                    <div class="enlarged" role="dialog" aria-modal="true" aria-label="圖片放大視窗">
+                      <img id="enlargedImage" src="" alt="放大圖片" />
+                    </div>
+                    <button class="next-button" id="nextBtn" aria-label="下一張圖片">&#10095;</button>
+                  </div>
+                
+                  <script>
+                      document.addEventListener('DOMContentLoaded', function() {
+  // 獲取所有圖片容器
+  const imageContainers = document.querySelectorAll('.image-hover-container');
+  const overlay = document.querySelector('.overlay');
+  const enlargedImage = document.getElementById('enlargedImage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  
+  let currentIndex = 0;
+  const images = Array.from(imageContainers).map(container => 
+    container.querySelector('.hover-image')
+  );
+
+  // 點擊圖片打開放大視窗
+  imageContainers.forEach((container, index) => {
+    container.addEventListener('click', (e) => {
+      e.preventDefault();
+      currentIndex = index;
+      updateEnlargedImage();
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // 防止背景滾動
+    });
+  });
+
+  // 更新放大圖片
+  function updateEnlargedImage() {
+    const imgSrc = images[currentIndex].getAttribute('src');
+    const imgAlt = images[currentIndex].getAttribute('alt');
+    enlargedImage.setAttribute('src', imgSrc);
+    enlargedImage.setAttribute('alt', imgAlt);
+  }
+
+  // 上一張按鈕
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateEnlargedImage();
+  });
+
+  // 下一張按鈕
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % images.length;
+    updateEnlargedImage();
+  });
+
+  // 關閉放大視窗
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('enlarged')) {
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  // 鍵盤控制
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('active')) return;
+    
+    switch(e.key) {
+      case 'ArrowLeft':
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateEnlargedImage();
+        break;
+      case 'ArrowRight':
+        currentIndex = (currentIndex + 1) % images.length;
+        updateEnlargedImage();
+        break;
+      case 'Escape':
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        break;
+    }
+  });
+});
+                      // 漢堡選單控制
+                      const hamburger = document.querySelector('.hamburger');
+                    const section1List = document.querySelector('.section1-list');
+                    let autoCloseTimer = null;
+
+                    hamburger.addEventListener('click', () => {
+                        const isShowing = section1List.classList.contains('show');
+
+                        if (isShowing) {
+                        section1List.classList.remove('show');
+                        if (autoCloseTimer) clearTimeout(autoCloseTimer);
+                        } else {
+                        section1List.classList.add('show');
+                        if (autoCloseTimer) clearTimeout(autoCloseTimer);
+                        autoCloseTimer = setTimeout(() => {
+                            section1List.classList.remove('show');
+                        }, 5000); // ⏱ 5 秒自動收起
+                        }
+                    });
+
+                    // 點擊外部區域也會自動收起（可選）
+                    document.addEventListener('click', (e) => {
+                        if (
+                        !section1List.contains(e.target) &&
+                        !hamburger.contains(e.target)
+                        ) {
+                        section1List.classList.remove('show');
+                        if (autoCloseTimer) clearTimeout(autoCloseTimer);
+                        }
+                    });
+                    const menuToggle = document.getElementById('menu-toggle');
+
+                    menuToggle.addEventListener('change', () => {
+                    if (menuToggle.checked) {
+                        // 開啟時，5秒後自動收回
+                        setTimeout(() => {
+                        menuToggle.checked = false;
+                        }, 5000);
+                    }
+                    });
+                    let lastScrollTop = 0;
+                    const section1 = document.querySelector('.section1');
+
+                    window.addEventListener('scroll', function () {
+                        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+                        if (scrollTop > 50) {
+                        if (scrollTop > lastScrollTop) {
+                            // 向下滑動 - 隱藏
+                            section1.style.opacity = '0';
+                            section1.style.pointerEvents = 'none';
+                        } else {
+                            // 向上滑動 - 顯示
+                            section1.style.opacity = '1';
+                            section1.style.pointerEvents = 'auto';
+                        }
+                        } else {
+                        // 回到頂部也顯示
+                        section1.style.opacity = '1';
+                        section1.style.pointerEvents = 'auto';
+                        }
+
+                        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                    });
+                    window.addEventListener("scroll", function () {
+                        const header = document.querySelector(".header2");
+                        const threshold = 100; // 捲動多少 px 後觸發效果
+
+                        if (window.scrollY > threshold) {
+                        header.classList.add("shrink");
+                        } else {
+                        header.classList.remove("shrink");
+                        }
+                    });
+                    </script>
+                  
+                
+</body>
+</html>
